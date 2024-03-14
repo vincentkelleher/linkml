@@ -19,9 +19,6 @@
       "AnyValue": {
          "@id": "linkml:Any"
       },
-      "Extensible": {
-         "@id": "linkml:Extensible"
-      },
       "Extension": {
          "@id": "linkml:Extension"
       },

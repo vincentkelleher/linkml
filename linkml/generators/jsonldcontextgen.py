@@ -130,6 +130,9 @@ class ContextGenerator(Generator):
             print(as_json(context))
 
     def visit_class(self, cls: ClassDefinition) -> bool:
+        if cls.mixin:
+            return False
+
         class_def = {}
         cn = camelcase(cls.name)
         self.add_mappings(cls)

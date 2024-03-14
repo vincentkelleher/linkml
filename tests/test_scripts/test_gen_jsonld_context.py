@@ -4,6 +4,7 @@ from click.testing import CliRunner
 from linkml.generators.jsonldcontextgen import cli
 
 from ..conftest import KITCHEN_SINK_PATH
+from ..utils.compare_jsonld_context import CompareJsonldContext
 
 
 def test_help():
@@ -15,11 +16,11 @@ def test_help():
 @pytest.mark.parametrize(
     "arguments,snapshot_file", [([], "meta.context.jsonld"), (["--metauris"], "meta_context.jsonld")]
 )
-def test_metamodel(arguments, snapshot_file, snapshot):
+def test_metamodel(arguments, snapshot_file, snapshot_path):
     runner = CliRunner()
     result = runner.invoke(cli, arguments + [KITCHEN_SINK_PATH])
     assert result.exit_code == 0
-    assert result.output == snapshot(f"gencontext/{snapshot_file}")
+    CompareJsonldContext.compare_with_snapshot(result.output, snapshot_path(f"gencontext/{snapshot_file}"))
 
 
 @pytest.mark.parametrize(
