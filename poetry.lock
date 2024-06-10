@@ -4151,4 +4151,4 @@ tests = ["black", "pyshacl"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8.1"
-content-hash = "8f449a771501c7950800e518ba78d5e1f16893f410a6b8ad3e2d993d672610ec"
+content-hash = "6c12a0c572bb192d2e4af9709b62b2fb93e94d24471b0e5fba20b87ce3729c09"
