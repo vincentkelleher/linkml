@@ -9,7 +9,12 @@
         <title>How to run a collaborative data modeling project - linkml documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css?v=b029f2e4" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/notebooks.css?v=8a1ccf7d" />
     
     
 
@@ -179,6 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../schemas/metadata.html">Schema Element Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/inheritance.html">Inheritance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/slots.html">Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schemas/arrays.html">Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/uris-and-mappings.html">URIs and Mappings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/enums.html">Semantic Enumerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/inlining.html">Inlining objects</a></li>
@@ -192,6 +198,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../schemas/derived-models.html">Derived models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/annotations.html">Annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../schemas/metamodel.html">The metamodel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../schemas/expression-language.html">Expression Language</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../data/index.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Working with Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -245,6 +252,7 @@
 <li class="toctree-l2"><a class="reference internal" href="port-linkml.html">Porting LinkML tools to other programming languages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="multidimensional-arrays.html">Multidimensional Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="generate-ai-prompts.html">How to Generate AI prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deprecating-elements.html">Deprecating elements while maintaining PURLs and other URIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples of use</a></li>
@@ -259,6 +267,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../faq/python.html">FAQ: Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq/getting-help.html">FAQ: Getting Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq/contributing.html">FAQ: Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/tricky_choices.html">FAQ: Tricky Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -277,12 +286,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/sqlstore.html">SQLStore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/tool-developer-guide.html">Tool Implementer Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/contributing-code.html">Contributing Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/deprecation.html">Deprecations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../code/index.html">Code</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Code</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../code/metamodel.html">MetaModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code/utils.html">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code/validator.html">Validator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/deprecation.html">Deprecation Log</a></li>
 </ul>
 </li>
 </ul>
@@ -704,6 +715,7 @@ open ecosystem. The <a class="reference external" href="https://oboacademy.githu
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     </body>

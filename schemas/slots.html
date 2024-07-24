@@ -3,13 +3,18 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="URIs and Mappings" href="uris-and-mappings.html" /><link rel="prev" title="Inheritance" href="inheritance.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Arrays" href="arrays.html" /><link rel="prev" title="Inheritance" href="inheritance.html" />
 
     <link rel="shortcut icon" href="https://linkml.io/uploads/linkml-logo_color-no-words.png"/><!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
         <title>Slots - linkml documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/common.css?v=b029f2e4" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/notebooks.css?v=8a1ccf7d" />
     
     
 
@@ -179,6 +184,7 @@
 <li class="toctree-l2"><a class="reference internal" href="metadata.html">Schema Element Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inheritance.html">Inheritance</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="uris-and-mappings.html">URIs and Mappings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enums.html">Semantic Enumerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inlining.html">Inlining objects</a></li>
@@ -192,6 +198,7 @@
 <li class="toctree-l2"><a class="reference internal" href="derived-models.html">Derived models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="annotations.html">Annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metamodel.html">The metamodel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="expression-language.html">Expression Language</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../data/index.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Working with Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -245,6 +252,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../howtos/port-linkml.html">Porting LinkML tools to other programming languages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../howtos/multidimensional-arrays.html">Multidimensional Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../howtos/generate-ai-prompts.html">How to Generate AI prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../howtos/deprecating-elements.html">Deprecating elements while maintaining PURLs and other URIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples of use</a></li>
@@ -259,6 +267,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../faq/python.html">FAQ: Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq/getting-help.html">FAQ: Getting Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq/contributing.html">FAQ: Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/tricky_choices.html">FAQ: Tricky Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -277,12 +286,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../developers/sqlstore.html">SQLStore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/tool-developer-guide.html">Tool Implementer Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../developers/contributing-code.html">Contributing Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developers/deprecation.html">Deprecations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../code/index.html">Code</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Code</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../code/metamodel.html">MetaModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code/utils.html">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../code/validator.html">Validator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code/deprecation.html">Deprecation Log</a></li>
 </ul>
 </li>
 </ul>
@@ -388,29 +399,57 @@ are applicable to that class.</p>
 </section>
 <section id="slot-usage">
 <h2>slot_usage<a class="headerlink" href="#slot-usage" title="Permalink to this heading">#</a></h2>
-<p>The <a class="reference external" href="https://w3id.org/linkml/slot_usage">slot_usage</a> slot can be used to refine the meaning of a slot in the context of a particular class.</p>
-<p>For example, imagine a schema with a generic “Relationship” class:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">Relationship</span><span class="p">:</span>
+<p>The <a class="reference external" href="https://w3id.org/linkml/slot_usage">slot_usage</a> slot can be used to <em>refine</em> the meaning of a slot in the context of a particular class.</p>
+<p>For example, imagine a schema with classes <code class="docutils literal notranslate"><span class="pre">Vehicle</span></code> and <code class="docutils literal notranslate"><span class="pre">VehiclePart</span></code>, which vehicles can be disassembled into parts:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">classes</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Vehicle</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">slots</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">started_at_time</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ended_at_time</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">related_to</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">type</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">make</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parts</span>
+<span class="w">  </span><span class="nt">VehiclePart</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">slots</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">part_number</span>
+<span class="w">  </span>
+<span class="nt">slots</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">make</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">  </span><span class="nt">part_number</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">  </span><span class="nt">parts</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VehiclePart</span>
+<span class="w">    </span><span class="nt">multivalued</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
-<p>with subtypes such as <code class="docutils literal notranslate"><span class="pre">FamilialRelationship</span></code>, <code class="docutils literal notranslate"><span class="pre">BusinessRelationship</span></code>, etc</p>
-<p>we can use <code class="docutils literal notranslate"><span class="pre">slot_usage</span></code> to constrain the meaning of more generic slots such as <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">related</span> <span class="pre">to</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">FamilialRelationship</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Relationship</span>
+<p>We can refine the hierarchy:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">classes</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Car</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vehicle</span>
 <span class="w">    </span><span class="nt">slot_usage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FamilialRelationshipType</span>
-<span class="w">        </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">related to</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Person</span>
-<span class="w">        </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">parts</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CarPart</span>
+<span class="w">  </span><span class="nt">Bicycle</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vehicle</span>
+<span class="w">    </span><span class="nt">slot_usage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">parts</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BicyclePart</span>
+<span class="w">  </span><span class="nt">CarPart</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VehiclePart</span>
+<span class="w">  </span><span class="nt">BicyclePart</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VehiclePart</span>
 </pre></div>
 </div>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">Car</span></code> and <code class="docutils literal notranslate"><span class="pre">Bicycle</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">Vehicle</span></code>, and <code class="docutils literal notranslate"><span class="pre">CarPart</span></code> and <code class="docutils literal notranslate"><span class="pre">BicyclePart</span></code> are subclasses of <code class="docutils literal notranslate"><span class="pre">VehiclePart</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">parts</span></code> slot is refined to have a range of <code class="docutils literal notranslate"><span class="pre">CarPart</span></code> for <code class="docutils literal notranslate"><span class="pre">Car</span></code> and <code class="docutils literal notranslate"><span class="pre">BicyclePart</span></code> for <code class="docutils literal notranslate"><span class="pre">Bicycle</span></code>.</p>
+<p>Note that LinkML schemas are <a class="reference external" href="https://en.wikipedia.org/wiki/Monotonicity_of_entailment">monotonic</a>. This means
+it’s not possible to <em>override</em> existing constraints, new constraints are always additive and “layered on”.</p>
+<p>In the above example, you can think of a <code class="docutils literal notranslate"><span class="pre">Car</span></code> having <em>two</em> constraints on the <code class="docutils literal notranslate"><span class="pre">parts</span></code> slot:</p>
+<ul class="simple">
+<li><p>one from the <code class="docutils literal notranslate"><span class="pre">Vehicle</span></code> class, stating that the range is <code class="docutils literal notranslate"><span class="pre">VehiclePart</span></code></p></li>
+<li><p>and one from the <code class="docutils literal notranslate"><span class="pre">Car</span></code> class, stating that the range is <code class="docutils literal notranslate"><span class="pre">CarPart</span></code></p></li>
+</ul>
+<p>Rather than the first overriding the second, the two constraints are combined, and the first becomes redundant
+(because <code class="docutils literal notranslate"><span class="pre">CarPart</span></code> is a subclass of <code class="docutils literal notranslate"><span class="pre">VehiclePart</span></code>)</p>
 </section>
 <section id="identifiers">
 <h2>Identifiers<a class="headerlink" href="#identifiers" title="Permalink to this heading">#</a></h2>
@@ -437,16 +476,12 @@ be used for <a class="reference internal" href="inlining.html"><span class="doc 
 </div>
 <p>See the <a class="reference internal" href="type-designators.html"><span class="std std-doc">type-designators</span></a> section of the docs for more details.</p>
 </section>
-<section id="slot-cardinality">
-<h2>Slot cardinality<a class="headerlink" href="#slot-cardinality" title="Permalink to this heading">#</a></h2>
-<p>The cardinality of a slot is indicative of two properties on a slot. It tells us about whether a slot is <em>required</em> or not, and also about how many values it is allowed to have, i.e., whether it is <em>single-valued</em> or <em>multi-valued</em>.</p>
-<p>The following list summarizes the expansions of the various possible combinations of cardinalities that can be asserted on a slot:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">1..*</span></code> - slot is <em>required</em> and <em>multivalued</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">1..1</span></code> - slot is <em>required</em> but <em>not multivalued</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">0..*</span></code> - slot is <em>not required</em> but if provided it must be <em>mulitvalued</em></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">0..1</span></code> - slot is <em>not required</em> and <em>not multivalued</em></p></li>
-</ul>
+<section id="cardinality">
+<h2>Cardinality<a class="headerlink" href="#cardinality" title="Permalink to this heading">#</a></h2>
+<p>In LinkML, slots can be required (mandatory), and they can be singlevalued or multivalued. These are controlled
+via <code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code> boolean slots. Additionally, when a slot is multivalued, specific cardinality ranges can be supplied
+using <code class="docutils literal notranslate"><span class="pre">maximum_cardinality</span></code> and <code class="docutils literal notranslate"><span class="pre">minimum_cardinality</span></code>.</p>
+<p>Collectively, these metamodel slots define the <em>cardinality</em> of a slot in a data model.</p>
 <section id="multivalued">
 <h3>multivalued<a class="headerlink" href="#multivalued" title="Permalink to this heading">#</a></h3>
 <p>The <a class="reference external" href="https://w3id.org/linkml/multivalued">multivalued</a> indicates that the range of the slot is a list</p>
@@ -459,6 +494,52 @@ be used for <a class="reference internal" href="inlining.html"><span class="doc 
 </pre></div>
 </div>
 </section>
+<section id="required">
+<h3>required<a class="headerlink" href="#required" title="Permalink to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://w3id.org/linkml/required">required</a> slot can be used to define whether a slot is required.</p>
+<p>When a slot is declared as required, any class that uses that slot must have a value for that slot.</p>
+</section>
+<section id="recommended">
+<h3>recommended<a class="headerlink" href="#recommended" title="Permalink to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://w3id.org/linkml/recommended">recommended</a> slot can be used to define whether a slot is recommended.</p>
+<p>If data is missing a recommended slot, it is still considered valid. However, validators may choose to issue warnings.</p>
+</section>
+<section id="explicit-cardinality-ranges">
+<h3>explicit cardinality ranges<a class="headerlink" href="#explicit-cardinality-ranges" title="Permalink to this heading">#</a></h3>
+<p>When a field is multivalued, cardinality can be explicit specified using the following metamodel slots:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://w3id.org/linkml/minimum_cardinality">minimum_cardinality</a> minimum (inclusive) length of the list of elements</p></li>
+<li><p><a class="reference external" href="https://w3id.org/linkml/maximum_cardinality">maximum_cardinality</a> maximum (inclusive) length of the list of elements</p></li>
+<li><p><a class="reference external" href="https://w3id.org/linkml/exact_cardinality">exact_cardinality</a> exact length of the list of elements</p></li>
+</ul>
+<p>Note that specifying <code class="docutils literal notranslate"><span class="pre">exact</span></code> entails both <code class="docutils literal notranslate"><span class="pre">maximum</span></code> and <code class="docutils literal notranslate"><span class="pre">minimum</span></code>, and setting <code class="docutils literal notranslate"><span class="pre">maximum</span></code> and <code class="docutils literal notranslate"><span class="pre">minimum</span></code> to be equal entails <code class="docutils literal notranslate"><span class="pre">exact</span></code>.</p>
+</section>
+<section id="writing-cardinality-using-uml-notation">
+<h3>Writing cardinality using UML notation<a class="headerlink" href="#writing-cardinality-using-uml-notation" title="Permalink to this heading">#</a></h3>
+<p>Cardinality can also be written in UML notation. The following gives an explanation of UML notation and how this maps to LinkML.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> - Only 1 (<code class="docutils literal notranslate"><span class="pre">required</span></code> and not <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0..1</span></code> - Zero or one (not <code class="docutils literal notranslate"><span class="pre">required</span></code> and not <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..*</span></code> - One or more (<code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with no minimum and maximum cardinality specified)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> - Many (not <code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with no minimum and maximum cardinality specified)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> - n (where n&gt;1) (<code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with <code class="docutils literal notranslate"><span class="pre">exact_cardinality=n</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0..n</span></code> - Zero to n (where n&gt;1) (not <code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with <code class="docutils literal notranslate"><span class="pre">maximum_cardinality=n</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1..n</span></code> - One to n (where n&gt;1) (<code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with <code class="docutils literal notranslate"><span class="pre">maximum_cardinality=n</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m..n</span></code> - m to n (where m,n&gt;1) (<code class="docutils literal notranslate"><span class="pre">required</span></code> and <code class="docutils literal notranslate"><span class="pre">multivalued</span></code>, with <code class="docutils literal notranslate"><span class="pre">minimum_cardnality=m</span></code> and <code class="docutils literal notranslate"><span class="pre">maximum_cardinality=n</span></code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="inverse">
+<h2>inverse<a class="headerlink" href="#inverse" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">inverse</span></code> slot can be used to specify the inverse predicate of a given predicate slot relationship.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">parent_of</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">famlially_related_to</span>
+<span class="w">    </span><span class="nt">inverse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">child_of</span>
+</pre></div>
+</div>
+<p>For most purposes, the specification of an inverse acts as additional documentation and doesn’t
+affect programming semantics. However, some frameworks like RDF/OWL allow for the inference of
+inverses.</p>
 </section>
 <section id="default-values">
 <h2>default values<a class="headerlink" href="#default-values" title="Permalink to this heading">#</a></h2>
@@ -485,28 +566,6 @@ be used for <a class="reference internal" href="inlining.html"><span class="doc 
 <span class="w">    </span><span class="nt">ifabsent</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datetime(&quot;2020-01-31T12:00:00Z&quot;)</span>
 </pre></div>
 </div>
-<section id="required">
-<h3>required<a class="headerlink" href="#required" title="Permalink to this heading">#</a></h3>
-<p>The <a class="reference external" href="https://w3id.org/linkml/required">required</a> slot can be used to define whether a slot is required.</p>
-<p>When a slot is declared as required, any class that uses that slot must have a value for that slot.</p>
-</section>
-<section id="recommended">
-<h3>recommended<a class="headerlink" href="#recommended" title="Permalink to this heading">#</a></h3>
-<p>The <a class="reference external" href="https://w3id.org/linkml/recommended">recommended</a> slot can be used to define whether a slot is recommended.</p>
-<p>If data is missing a recommended slot, it is still considered valid. However, validators may choose to issue warnings.</p>
-</section>
-</section>
-<section id="inverse">
-<h2>inverse<a class="headerlink" href="#inverse" title="Permalink to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">inverse</span></code> slot can be used to specify the inverse predicate of a given predicate slot relationship.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="nt">parent_of</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">is_a</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">famlially_related_to</span>
-<span class="w">    </span><span class="nt">inverse</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">child_of</span>
-</pre></div>
-</div>
-<p>For most purposes, the specification of an inverse acts as additional documentation and doesn’t
-affect programming semantics. However, some frameworks like RDF/OWL allow for the inference of
-inverses.</p>
 </section>
 <section id="logical-characteristics">
 <h2>logical characteristics<a class="headerlink" href="#logical-characteristics" title="Permalink to this heading">#</a></h2>
@@ -526,12 +585,12 @@ inverses.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="uris-and-mappings.html">
+          <a class="next-page" href="arrays.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">URIs and Mappings</div>
+                <div class="title">Arrays</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -581,16 +640,16 @@ inverses.</p>
 <li><a class="reference internal" href="#slot-usage">slot_usage</a></li>
 <li><a class="reference internal" href="#identifiers">Identifiers</a></li>
 <li><a class="reference internal" href="#type-designator">Type designator</a></li>
-<li><a class="reference internal" href="#slot-cardinality">Slot cardinality</a><ul>
+<li><a class="reference internal" href="#cardinality">Cardinality</a><ul>
 <li><a class="reference internal" href="#multivalued">multivalued</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#default-values">default values</a><ul>
 <li><a class="reference internal" href="#required">required</a></li>
 <li><a class="reference internal" href="#recommended">recommended</a></li>
+<li><a class="reference internal" href="#explicit-cardinality-ranges">explicit cardinality ranges</a></li>
+<li><a class="reference internal" href="#writing-cardinality-using-uml-notation">Writing cardinality using UML notation</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#inverse">inverse</a></li>
+<li><a class="reference internal" href="#default-values">default values</a></li>
 <li><a class="reference internal" href="#logical-characteristics">logical characteristics</a></li>
 </ul>
 </li>
@@ -607,6 +666,7 @@ inverses.</p>
     <script src="../_static/doctools.js?v=888ff710"></script>
     <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     </body>

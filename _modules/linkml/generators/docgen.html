@@ -8,7 +8,12 @@
         <title>linkml.generators.docgen - linkml documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/common.css?v=b029f2e4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/notebooks.css?v=8a1ccf7d" />
     
     
 
@@ -178,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/metadata.html">Schema Element Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/inheritance.html">Inheritance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/slots.html">Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schemas/arrays.html">Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/uris-and-mappings.html">URIs and Mappings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/enums.html">Semantic Enumerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/inlining.html">Inlining objects</a></li>
@@ -191,6 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/derived-models.html">Derived models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/annotations.html">Annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/metamodel.html">The metamodel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schemas/expression-language.html">Expression Language</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../data/index.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Working with Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -244,6 +251,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/port-linkml.html">Porting LinkML tools to other programming languages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/multidimensional-arrays.html">Multidimensional Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/generate-ai-prompts.html">How to Generate AI prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howtos/deprecating-elements.html">Deprecating elements while maintaining PURLs and other URIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples of use</a></li>
@@ -258,6 +266,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/python.html">FAQ: Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/getting-help.html">FAQ: Getting Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/contributing.html">FAQ: Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq/tricky_choices.html">FAQ: Tricky Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -276,12 +285,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/sqlstore.html">SQLStore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/tool-developer-guide.html">Tool Implementer Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/contributing-code.html">Contributing Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/deprecation.html">Deprecations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/index.html">Code</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Code</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/metamodel.html">MetaModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/utils.html">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/validator.html">Validator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/deprecation.html">Deprecation Log</a></li>
 </ul>
 </li>
 </ul>
@@ -887,23 +898,60 @@
 <div class="viewcode-block" id="DocGenerator.cardinality"><a class="viewcode-back" href="../../../generators/docgen.html#linkml.generators.docgen.DocGenerator.cardinality">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">cardinality</span><span class="p">(</span><span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Render combination of required, multivalued, and recommended as a range, e.g. 0..*</span>
-<span class="sd">        :param slot:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        Render combination of required, multivalued, recommended, and exact_cardinality as a range,</span>
+<span class="sd">        according to Mermaid conventions. Considers &#39;required&#39; and &#39;multivalued&#39; to set defaults</span>
+<span class="sd">        for &#39;minimum_cardinality&#39; and &#39;maximum_cardinality&#39;.</span>
+
+<span class="sd">        Reference: https://mermaid.js.org/syntax/classDiagram.html#cardinality-multiplicity-on-relations</span>
+
+<span class="sd">        The different cardinality options are:</span>
+<span class="sd">        - 1 Only 1</span>
+<span class="sd">        - 0..1 Zero or One</span>
+<span class="sd">        - 1..* One or more</span>
+<span class="sd">        - * Many</span>
+<span class="sd">        - n n (where n&gt;1)</span>
+<span class="sd">        - 0..n zero to n (where n&gt;1)</span>
+<span class="sd">        - 1..n one to n (where n&gt;1)</span>
+<span class="sd">        :param slot: SlotDefinition</span>
+<span class="sd">        :return: cardinality string as used in Mermaid diagrams</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">required</span> <span class="ow">or</span> <span class="n">slot</span><span class="o">.</span><span class="n">identifier</span><span class="p">:</span>
-            <span class="nb">min</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+        <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">exact_cardinality</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cardinality</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">exact_cardinality</span><span class="p">)</span>  <span class="c1"># handles &#39;n&#39; case</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">min</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
-        <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">multivalued</span><span class="p">:</span>
-            <span class="nb">max</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">max</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+            <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">required</span> <span class="ow">or</span> <span class="n">slot</span><span class="o">.</span><span class="n">identifier</span><span class="p">:</span>
+                <span class="n">min_card</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">min_card</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">minimum_cardinality</span><span class="p">)</span> <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">minimum_cardinality</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;0&quot;</span>
+
+            <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">multivalued</span><span class="p">:</span>
+                <span class="n">max_card</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">max_card</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">slot</span><span class="o">.</span><span class="n">maximum_cardinality</span><span class="p">)</span> <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">maximum_cardinality</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;1&quot;</span>
+
+            <span class="k">if</span> <span class="n">min_card</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">max_card</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="s2">&quot;0..1&quot;</span>  <span class="c1"># handles &#39;0..1&#39; case</span>
+                <span class="k">elif</span> <span class="n">max_card</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>  <span class="c1"># handles &#39;*&#39; case</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;0..</span><span class="si">{</span><span class="n">max_card</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># handles &#39;0..n&#39; case</span>
+            <span class="k">elif</span> <span class="n">min_card</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">max_card</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>  <span class="c1"># handles &#39;1&#39; case</span>
+                <span class="k">elif</span> <span class="n">max_card</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="s2">&quot;1..*&quot;</span>  <span class="c1"># handles &#39;1..*&#39; case</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;1..</span><span class="si">{</span><span class="n">max_card</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># handles &#39;1..n&#39; case</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">max_card</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">min_card</span><span class="si">}</span><span class="s2">..*&quot;</span>  <span class="c1"># handles &#39;n..*&#39; case</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cardinality</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">min_card</span><span class="si">}</span><span class="s2">..</span><span class="si">{</span><span class="n">max_card</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># handles &#39;n..m&#39; case</span>
+
         <span class="k">if</span> <span class="n">slot</span><span class="o">.</span><span class="n">recommended</span><span class="p">:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot; _recommended_&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">min</span><span class="si">}</span><span class="s2">..</span><span class="si">{</span><span class="nb">max</span><span class="si">}{</span><span class="n">info</span><span class="si">}</span><span class="s2">&quot;</span></div>
+            <span class="n">cardinality</span> <span class="o">+=</span> <span class="s2">&quot; _recommended_&quot;</span>
+
+        <span class="k">return</span> <span class="n">cardinality</span></div>
 
 <div class="viewcode-block" id="DocGenerator.mermaid_directive"><a class="viewcode-back" href="../../../generators/docgen.html#linkml.generators.docgen.DocGenerator.mermaid_directive">[docs]</a>    <span class="k">def</span> <span class="nf">mermaid_directive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1252,6 +1300,14 @@
     <span class="s2">&quot;--example-directory&quot;</span><span class="p">,</span>
     <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Folder in which example files are found. These are used to make inline examples&quot;</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-d&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;--include&quot;</span><span class="p">,</span>
+    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Include LinkML Schema outside of imports mechanism.  Helpful in including deprecated classes and slots in a separate</span>
+<span class="s2">YAML, and including it when necessary but not by default (e.g. in documentation or for backwards compatibility)</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">version_option</span><span class="p">(</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;-V&quot;</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">cli</span><span class="p">(</span>
@@ -1336,6 +1392,7 @@
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     </body>

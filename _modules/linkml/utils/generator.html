@@ -8,7 +8,12 @@
         <title>linkml.utils.generator - linkml documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/common.css?v=b029f2e4" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/notebooks.css?v=8a1ccf7d" />
     
     
 
@@ -178,6 +183,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/metadata.html">Schema Element Metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/inheritance.html">Inheritance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/slots.html">Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schemas/arrays.html">Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/uris-and-mappings.html">URIs and Mappings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/enums.html">Semantic Enumerations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/inlining.html">Inlining objects</a></li>
@@ -191,6 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/derived-models.html">Derived models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/annotations.html">Annotations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../schemas/metamodel.html">The metamodel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../schemas/expression-language.html">Expression Language</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../data/index.html">Working with Data</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Working with Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -244,6 +251,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/port-linkml.html">Porting LinkML tools to other programming languages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/multidimensional-arrays.html">Multidimensional Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../howtos/generate-ai-prompts.html">How to Generate AI prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../howtos/deprecating-elements.html">Deprecating elements while maintaining PURLs and other URIs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples of use</a></li>
@@ -258,6 +266,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/python.html">FAQ: Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/getting-help.html">FAQ: Getting Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../faq/contributing.html">FAQ: Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../faq/tricky_choices.html">FAQ: Tricky Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -276,12 +285,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/sqlstore.html">SQLStore</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/tool-developer-guide.html">Tool Implementer Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../developers/contributing-code.html">Contributing Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../developers/deprecation.html">Deprecations</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/index.html">Code</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of Code</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/metamodel.html">MetaModel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/utils.html">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/validator.html">Validator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/deprecation.html">Deprecation Log</a></li>
 </ul>
 </li>
 </ul>
@@ -340,17 +351,14 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">redirect_stdout</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
-<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
 <span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">from</span> <span class="nn">click</span> <span class="kn">import</span> <span class="n">Argument</span><span class="p">,</span> <span class="n">Command</span><span class="p">,</span> <span class="n">Option</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime</span> <span class="kn">import</span> <span class="n">SchemaView</span>
-<span class="kn">from</span> <span class="nn">linkml_runtime.dumpers</span> <span class="kn">import</span> <span class="n">yaml_dumper</span>
 <span class="kn">from</span> <span class="nn">linkml_runtime.linkml_model.meta</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ClassDefinition</span><span class="p">,</span>
     <span class="n">ClassDefinitionName</span><span class="p">,</span>
@@ -403,7 +411,7 @@
 <span class="sd">    For usage `Generator Docs &lt;https://linkml.io/linkml/generators/&gt;`_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="s2">&quot;Generator&quot;</span><span class="p">]</span>
+    <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="s2">&quot;Generator&quot;</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;metamodel compliant schema.  Can be URI, file name, actual schema, another generator, an</span>
 <span class="sd">        open file or a pre-parsed schema&quot;&quot;&quot;</span>
 
@@ -450,7 +458,7 @@
     <span class="n">useuris</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;True means declared class slot uri&#39;s are used.  False means use model uris&quot;&quot;&quot;</span>
 
-    <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_LOG_LEVEL_INT</span>
+    <span class="n">log_level</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_LOG_LEVEL_INT</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Logging level, 0 is minimum&quot;&quot;&quot;</span>
 
     <span class="n">mergeimports</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
@@ -497,9 +505,14 @@
     <span class="n">stacktrace</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;True means print stack trace, false just error message&quot;&quot;&quot;</span>
 
+    <span class="n">include</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If set, include extra schema outside of the imports mechanism&quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_level</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_formats</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_formats</span><span class="p">:</span>
@@ -511,7 +524,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">source_file_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">requires_metamodel</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">metamodel</span> <span class="o">=</span> <span class="n">_resolved_metamodel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mergeimports</span><span class="p">)</span>
+
         <span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="n">schema</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+
         <span class="c1"># TODO: remove aliasing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">emit_metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uses_schemaloader</span><span class="p">:</span>
@@ -519,7 +536,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using SchemaView with im=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">importmap</span><span class="si">}</span><span class="s2"> // base_dir=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schemaview</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="n">schema</span><span class="p">,</span> <span class="n">importmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">importmap</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">include</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">include</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">)):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">include</span> <span class="o">=</span> <span class="n">SchemaView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">include</span><span class="p">,</span> <span class="n">importmap</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">importmap</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="p">)</span><span class="o">.</span><span class="n">schema</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">schemaview</span><span class="o">.</span><span class="n">merge_schema</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">include</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">schema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">schemaview</span><span class="o">.</span><span class="n">schema</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_namespaces</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_initialize_using_schemaloader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">SchemaDefinition</span><span class="p">,</span> <span class="s2">&quot;Generator&quot;</span><span class="p">]):</span>
@@ -545,8 +567,7 @@
                 <span class="c1"># schemaloader based methods require schemas to have been created via SchemaLoader,</span>
                 <span class="c1"># which prepopulates some fields (e.g. definition_url). If the schema has not been processed through the</span>
                 <span class="c1"># loader, then roundtrip</span>
-                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">definition_uri</span><span class="p">):</span>
-                    <span class="n">schema</span> <span class="o">=</span> <span class="n">yaml_dumper</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+                <span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">_as_dict</span>
             <span class="n">loader</span> <span class="o">=</span> <span class="n">SchemaLoader</span><span class="p">(</span>
                 <span class="n">schema</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="p">,</span>
@@ -583,66 +604,82 @@
 <span class="sd">        :param kwargs: Generator specific parameters</span>
 <span class="sd">        :return: Generated output</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
-        <span class="c1"># Note: we currently redirect stdout, this means that print statements within</span>
-        <span class="c1"># each generator will be redirected to the StringIO object.</span>
-        <span class="c1"># See https://github.com/linkml/linkml/issues/923 for discussion on simplifying this</span>
-        <span class="k">with</span> <span class="n">redirect_stdout</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
-            <span class="c1"># the default is to use the Visitor Pattern; each individual generator may</span>
-            <span class="c1"># choose to override methods {visit,end}_{element}.</span>
-            <span class="c1"># See https://github.com/linkml/linkml/issues/923</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">visit_schema</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">ss</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">visit_subset</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">tn</span><span class="p">,</span> <span class="n">typ</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">visit_type</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">enum</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-            <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">visit_enum</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">slot</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">visit_slot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliased_slot_name</span><span class="p">(</span><span class="n">slot</span><span class="p">),</span> <span class="n">slot</span><span class="p">)</span>
-            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-            <span class="p">):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">slot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_slots</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_all_class_slots</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">own_slots</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">visit_class_slot</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliased_slot_name</span><span class="p">(</span><span class="n">slot</span><span class="p">),</span> <span class="n">slot</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">end_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">end_schema</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div>
+        <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<div class="viewcode-block" id="Generator.visit_schema"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_schema">[docs]</a>    <span class="k">def</span> <span class="nf">visit_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># the default is to use the Visitor Pattern; each individual generator may</span>
+        <span class="c1"># choose to override methods {visit,end}_{element}.</span>
+        <span class="c1"># See https://github.com/linkml/linkml/issues/923</span>
+        <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_schema</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">ss</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_subset</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">for</span> <span class="n">tn</span><span class="p">,</span> <span class="n">typ</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_type</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">for</span> <span class="n">enum</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_enum</span><span class="p">(</span><span class="n">enum</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">for</span> <span class="n">sn</span><span class="p">,</span> <span class="n">slot</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">slots</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_slot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aliased_slot_name</span><span class="p">(</span><span class="n">slot</span><span class="p">),</span> <span class="n">slot</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visits_are_sorted</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">cls_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cls_out</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cls_out</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">out</span> <span class="o">+=</span> <span class="n">cls_out</span>
+                <span class="k">for</span> <span class="n">slot</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_slots</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_all_class_slots</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">own_slots</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+                    <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visit_class_slot</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aliased_slot_name</span><span class="p">(</span><span class="n">slot</span><span class="p">),</span> <span class="n">slot</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+                <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="n">sub_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_schema</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sub_out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="n">sub_out</span>
+        <span class="k">return</span> <span class="n">out</span></div>
+
+<div class="viewcode-block" id="Generator.visit_schema"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_schema">[docs]</a>    <span class="k">def</span> <span class="nf">visit_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once at the beginning of generation</span>
 
 <span class="sd">        @param kwargs: Arguments passed through from CLI -- implementation dependent</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.end_schema"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.end_schema">[docs]</a>    <span class="k">def</span> <span class="nf">end_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.end_schema"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.end_schema">[docs]</a>    <span class="k">def</span> <span class="nf">end_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once at the end of generation</span>
 
 <span class="sd">        @param kwargs: Arguments passed through from CLI -- implementation dependent</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_class"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_class">[docs]</a>    <span class="k">def</span> <span class="nf">visit_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_class"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_class">[docs]</a>    <span class="k">def</span> <span class="nf">visit_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once per schema class</span>
 
 <span class="sd">        @param cls: class being visited</span>
@@ -650,14 +687,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Generator.end_class"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.end_class">[docs]</a>    <span class="k">def</span> <span class="nf">end_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.end_class"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.end_class">[docs]</a>    <span class="k">def</span> <span class="nf">end_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited after visit_class_slots (if visit_class returned true)</span>
 
 <span class="sd">        @param cls: class being visited</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_class_slot"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_class_slot">[docs]</a>    <span class="k">def</span> <span class="nf">visit_class_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">,</span> <span class="n">aliased_slot_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_class_slot"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_class_slot">[docs]</a>    <span class="k">def</span> <span class="nf">visit_class_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">:</span> <span class="n">ClassDefinition</span><span class="p">,</span> <span class="n">aliased_slot_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited for each slot in a class.  If class level visit_all_slots is true, this is visited once</span>
 <span class="sd">        for any class that is inherited (class itself, is_a, mixin, apply_to).  Otherwise, just the own slots.</span>
 
@@ -667,7 +704,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_slot"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_slot">[docs]</a>    <span class="k">def</span> <span class="nf">visit_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aliased_slot_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_slot"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_slot">[docs]</a>    <span class="k">def</span> <span class="nf">visit_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">aliased_slot_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slot</span><span class="p">:</span> <span class="n">SlotDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once for every slot definition in the schema.</span>
 
 <span class="sd">        @param aliased_slot_name: Aliased name of the slot.  May not be unique</span>
@@ -675,21 +712,21 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_type"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_type">[docs]</a>    <span class="k">def</span> <span class="nf">visit_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">:</span> <span class="n">TypeDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_type"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_type">[docs]</a>    <span class="k">def</span> <span class="nf">visit_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">:</span> <span class="n">TypeDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once for every type definition in the schema</span>
 
 <span class="sd">        @param typ: Type definition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_subset"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_subset">[docs]</a>    <span class="k">def</span> <span class="nf">visit_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset</span><span class="p">:</span> <span class="n">SubsetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_subset"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_subset">[docs]</a>    <span class="k">def</span> <span class="nf">visit_subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset</span><span class="p">:</span> <span class="n">SubsetDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once for every subset definition in the schema</span>
 
 <span class="sd">        #param subset: Subset definition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
-<div class="viewcode-block" id="Generator.visit_enum"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_enum">[docs]</a>    <span class="k">def</span> <span class="nf">visit_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum</span><span class="p">:</span> <span class="n">EnumDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Generator.visit_enum"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.visit_enum">[docs]</a>    <span class="k">def</span> <span class="nf">visit_enum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enum</span><span class="p">:</span> <span class="n">EnumDefinition</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Visited once for every enum definition in the schema</span>
 
 <span class="sd">        @param enum: Enum definition</span>
@@ -1004,7 +1041,7 @@
 
 <div class="viewcode-block" id="Generator.slot_name"><a class="viewcode-back" href="../../../code/utils.html#linkml.utils.generator.Generator.slot_name">[docs]</a>    <span class="k">def</span> <span class="nf">slot_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the underscored version of the aliased slot name if name is a slot. Prepend &quot;unknown\_&quot; if the name</span>
+<span class="sd">        Return the underscored version of the aliased slot name if name is a slot. Prepend ``unknown_`` if the name</span>
 <span class="sd">        isn&#39;t valid.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">slot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slot_for</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -1299,6 +1336,7 @@
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     </body>
